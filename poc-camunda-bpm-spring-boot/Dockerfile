@@ -1,9 +1,8 @@
-FROM maven
+FROM maven:latest
 
 LABEL Description="Imagem Docker para build e execução de aplicação SpringBoot via Maven"
 
 VOLUME /usr/src
-WORKDIR .
 COPY src/ /var/shared/src
 EXPOSE 8080
 
