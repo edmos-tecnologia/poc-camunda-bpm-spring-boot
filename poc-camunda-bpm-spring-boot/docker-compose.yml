@@ -1,5 +1,31 @@
 version: "3.1"
 
 services:
+   edmos_db:
+        container_name: edmos-db
+        image: mariadb:latest
+        restart: always
+        command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE
+        networks:
+            - default
+        environment: 
+            MYSQL_DATABASE: camundadb
+            MYSQL_USER: camunda
+            MYSQL_PASSWORD: camunda@123
+            MYSQL_ROOT_PASSWORD: admin@123
+        volumes: 
+            - camunda_db:/var/lib/mysql
    camunda:
+      container_name: camunda-spring-boot
       image: maven:latest
+      command: mvn install clean spring-boot:run
+      networks:
+            - default
+      volumes: 
+            - ./:/usr/src
+
+networks:
+    default:
+
+volumes: 
+    camunda_db:
