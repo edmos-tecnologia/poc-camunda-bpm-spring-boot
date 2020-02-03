@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1bofscg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
-  <bpmn:collaboration id="Collaboration_0arvl23">
+  <bpmn:collaboration id="MainPool">
     <bpmn:participant id="Participant_0n0l9ua" name="Main Pool" processRef="Process_1jz93mb" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1jz93mb" name="MyProcess" isExecutable="true" camunda:versionTag="1">
@@ -9,52 +9,77 @@
         <camunda:property name="myProperty" value="a property" />
       </camunda:properties>
     </bpmn:extensionElements>
-    <bpmn:userTask id="Task_0dofhvd" name="My Task">
-      <bpmn:incoming>SequenceFlow_1td7lcw</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_14kwt7v</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="SequenceFlow_14kwt7v" sourceRef="Task_0dofhvd" targetRef="Task_137q3gc" />
-    <bpmn:sequenceFlow id="SequenceFlow_0j9m56c" sourceRef="Task_137q3gc" targetRef="EndEvent_0wtzq6w" />
-    <bpmn:endEvent id="EndEvent_0wtzq6w">
-      <bpmn:incoming>SequenceFlow_0j9m56c</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_137q3gc" name="My Service" camunda:async="true" camunda:delegateExpression="&#39;${doServiceDelegate}&#39;">
-      <bpmn:incoming>SequenceFlow_14kwt7v</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0j9m56c</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:startEvent id="StartEvent_15ppcex">
-      <bpmn:outgoing>SequenceFlow_1td7lcw</bpmn:outgoing>
+    <bpmn:laneSet id="LaneSet_0tv0l80">
+      <bpmn:lane id="Lane_1e4ywqa">
+        <bpmn:flowNodeRef>startEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>myTask</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>myServiceTask</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>myScriptTask</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="startEvent">
+      <bpmn:outgoing>toMyTask</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1td7lcw" sourceRef="StartEvent_15ppcex" targetRef="Task_0dofhvd" />
+    <bpmn:userTask id="myTask" name="My Task">
+      <bpmn:incoming>toMyTask</bpmn:incoming>
+      <bpmn:outgoing>toMyService</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="myServiceTask" name="My Service" camunda:delegateExpression="${doService}">
+      <bpmn:incoming>toMyService</bpmn:incoming>
+      <bpmn:outgoing>toMyScript</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent">
+      <bpmn:incoming>toEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:scriptTask id="myScriptTask" name="My Script" scriptFormat="groovy">
+      <bpmn:incoming>toMyScript</bpmn:incoming>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+      <bpmn:script>println "Doing Script task"</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="toMyTask" sourceRef="startEvent" targetRef="myTask" />
+    <bpmn:sequenceFlow id="toMyService" sourceRef="myTask" targetRef="myServiceTask" />
+    <bpmn:sequenceFlow id="toMyScript" sourceRef="myServiceTask" targetRef="myScriptTask" />
+    <bpmn:sequenceFlow id="toEnd" sourceRef="myScriptTask" targetRef="EndEvent" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0arvl23">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MainPool">
       <bpmndi:BPMNShape id="Participant_0n0l9ua_di" bpmnElement="Participant_0n0l9ua" isHorizontal="true">
-        <dc:Bounds x="160" y="80" width="690" height="330" />
+        <dc:Bounds x="160" y="80" width="840" height="270" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0wtzq6w_di" bpmnElement="EndEvent_0wtzq6w">
-        <dc:Bounds x="732" y="192" width="36" height="36" />
+      <bpmndi:BPMNShape id="EndEvent_0wtzq6w_di" bpmnElement="EndEvent">
+        <dc:Bounds x="912" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_14s57ov_di" bpmnElement="Task_0dofhvd">
+      <bpmndi:BPMNShape id="UserTask_14s57ov_di" bpmnElement="myTask">
         <dc:Bounds x="320" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_14kwt7v_di" bpmnElement="SequenceFlow_14kwt7v">
+      <bpmndi:BPMNEdge id="SequenceFlow_14kwt7v_di" bpmnElement="toMyService">
         <di:waypoint x="420" y="210" />
         <di:waypoint x="510" y="210" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0j9m56c_di" bpmnElement="SequenceFlow_0j9m56c">
-        <di:waypoint x="610" y="210" />
-        <di:waypoint x="732" y="210" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_1xgbt6w_di" bpmnElement="Task_137q3gc">
+      <bpmndi:BPMNShape id="ServiceTask_1xgbt6w_di" bpmnElement="myServiceTask">
         <dc:Bounds x="510" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="StartEvent_15ppcex_di" bpmnElement="StartEvent_15ppcex">
+      <bpmndi:BPMNShape id="StartEvent_15ppcex_di" bpmnElement="startEvent">
         <dc:Bounds x="202" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1td7lcw_di" bpmnElement="SequenceFlow_1td7lcw">
+      <bpmndi:BPMNEdge id="SequenceFlow_1td7lcw_di" bpmnElement="toMyTask">
         <di:waypoint x="238" y="210" />
         <di:waypoint x="320" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1e4ywqa_di" bpmnElement="Lane_1e4ywqa" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="810" height="270" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_1k81syd_di" bpmnElement="myScriptTask">
+        <dc:Bounds x="710" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_058ir78_di" bpmnElement="toMyScript">
+        <di:waypoint x="610" y="210" />
+        <di:waypoint x="710" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1sojcxq_di" bpmnElement="toEnd">
+        <di:waypoint x="810" y="210" />
+        <di:waypoint x="912" y="210" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

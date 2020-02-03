@@ -5,7 +5,7 @@
 	<groupId>br.com.edmos.camunda.spring</groupId>
 	<artifactId>poc-camunda-bpm-spring-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -52,4 +52,17 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>m2</id>
+			<layout>default</layout>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
