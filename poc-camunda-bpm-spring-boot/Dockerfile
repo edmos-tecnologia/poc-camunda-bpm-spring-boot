@@ -1,10 +1,10 @@
-FROM maven:latest
+FROM maven:3.6.3-jdk-8
 
 VOLUME /usr/src
-COPY src/ /var/shared/src
+COPY . /var/shared/src
 EXPOSE 8080
 
-RUN mvn clean install spring-boot:run
+RUN mvn -f /var/shared/src/pom.xml clean install
 
 
 
