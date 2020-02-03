@@ -16,9 +16,10 @@ services:
         volumes: 
             - camunda_db:/var/lib/mysql
    camunda:
-      container_name: camunda-spring-boot
-      image: maven:3.6.3-jdk-8
-      command: mvn install clean spring-boot:run -f /usr/src/pom.xml
+      build: .
+      container_name: poc-camunda-spring-boot
+      image: poc-camunda:latest
+      command: mvn spring-boot:run -f /usr/src/pom.xml
       ports:
             - 8080:8080
       networks:
