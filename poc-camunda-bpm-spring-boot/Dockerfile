@@ -4,7 +4,4 @@ VOLUME /usr/src
 COPY . /var/src
 EXPOSE 8080
 
-RUN mvn -f /var/shared/src/pom.xml clean install
-
-
-
+RUN mvn -f /var/src/pom.xml clean install

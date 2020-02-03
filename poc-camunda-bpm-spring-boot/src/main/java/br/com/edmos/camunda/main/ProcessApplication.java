@@ -21,6 +21,6 @@ public class ProcessApplication {
 	
 	@EventListener
 	private void processPostDeploy(PostDeployEvent event) {
-		runtimeService.startProcessInstanceByKey("myProcess");
+		runtimeService.startProcessInstanceByKey("myProcessApplication");
 	}
 }
