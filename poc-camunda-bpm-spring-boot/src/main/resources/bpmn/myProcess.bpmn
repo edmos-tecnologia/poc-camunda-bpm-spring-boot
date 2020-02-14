@@ -8,6 +8,7 @@
       <camunda:properties>
         <camunda:property name="myProperty" value="a property" />
       </camunda:properties>
+      <camunda:executionListener delegateExpression="${mainPoolListener}" event="start" />
     </bpmn:extensionElements>
     <bpmn:laneSet id="LaneSet_0tv0l80">
       <bpmn:lane id="Lane_1e4ywqa">
@@ -15,6 +16,19 @@
         <bpmn:flowNodeRef>EndEvent</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>myServiceTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>myTask</bpmn:flowNodeRef>
+        <bpmn:childLaneSet id="LaneSet_02zllnh">
+          <bpmn:lane id="Lane_0itvwg9">
+            <bpmn:flowNodeRef>startEvent</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>EndEvent</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>myServiceTask</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>myTask</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Task_0njn7uc</bpmn:flowNodeRef>
+            <bpmn:childLaneSet id="LaneSet_1mdk9h8" />
+          </bpmn:lane>
+        </bpmn:childLaneSet>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0yt2cai">
+        <bpmn:flowNodeRef>Task_0njn7uc</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="startEvent">
@@ -23,54 +37,76 @@
     <bpmn:endEvent id="EndEvent">
       <bpmn:incoming>toMyScript</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="toMyScript" sourceRef="myServiceTask" targetRef="EndEvent" />
-    <bpmn:sequenceFlow id="toMyService" sourceRef="myTask" targetRef="myServiceTask" />
-    <bpmn:sequenceFlow id="toMyTask" sourceRef="startEvent" targetRef="myTask" />
     <bpmn:serviceTask id="myServiceTask" name="My Service" camunda:asyncBefore="true" camunda:delegateExpression="${doService}">
       <bpmn:extensionElements>
-        <camunda:executionListener class="${myEventListener}" event="start" />
+        <camunda:executionListener delegateExpression="${myEventListener}" event="start" />
+        <camunda:executionListener expression="${myBean.doSomething()}" event="start" />
+        <camunda:executionListener expression="${myBean.doSomethingWithParameter(execution.eventName)}" event="start" />
       </bpmn:extensionElements>
-      <bpmn:incoming>toMyService</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0an4kmo</bpmn:incoming>
       <bpmn:outgoing>toMyScript</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="myTask" name="My Task">
       <bpmn:incoming>toMyTask</bpmn:incoming>
-      <bpmn:outgoing>toMyService</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1wle22k</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:userTask id="Task_0njn7uc" name="MyOtherTask">
+      <bpmn:incoming>SequenceFlow_1wle22k</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0an4kmo</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="toMyTask" sourceRef="startEvent" targetRef="myTask" />
+    <bpmn:sequenceFlow id="toMyScript" sourceRef="myServiceTask" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_1wle22k" sourceRef="myTask" targetRef="Task_0njn7uc" />
+    <bpmn:sequenceFlow id="SequenceFlow_0an4kmo" sourceRef="Task_0njn7uc" targetRef="myServiceTask" />
   </bpmn:process>
   <bpmn:message id="Message_1hs210p" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MainPool">
       <bpmndi:BPMNShape id="Participant_0n0l9ua_di" bpmnElement="Participant_0n0l9ua" isHorizontal="true">
-        <dc:Bounds x="155" y="80" width="965" height="270" />
+        <dc:Bounds x="152" y="110" width="965" height="400" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0wtzq6w_di" bpmnElement="EndEvent">
-        <dc:Bounds x="1032" y="192" width="36" height="36" />
+        <dc:Bounds x="1029" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_14s57ov_di" bpmnElement="myTask">
-        <dc:Bounds x="510" y="170" width="100" height="80" />
+        <dc:Bounds x="507" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_14kwt7v_di" bpmnElement="toMyService">
-        <di:waypoint x="610" y="210" />
-        <di:waypoint x="770" y="210" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1xgbt6w_di" bpmnElement="myServiceTask">
-        <dc:Bounds x="770" y="170" width="100" height="80" />
+        <dc:Bounds x="767" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_15ppcex_di" bpmnElement="startEvent">
-        <dc:Bounds x="322" y="192" width="36" height="36" />
+        <dc:Bounds x="319" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1td7lcw_di" bpmnElement="toMyTask">
-        <di:waypoint x="358" y="210" />
-        <di:waypoint x="510" y="210" />
+        <di:waypoint x="355" y="210" />
+        <di:waypoint x="507" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Lane_1e4ywqa_di" bpmnElement="Lane_1e4ywqa" isHorizontal="true">
-        <dc:Bounds x="185" y="80" width="935" height="270" />
+        <dc:Bounds x="182" y="110" width="935" height="200" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_058ir78_di" bpmnElement="toMyScript">
-        <di:waypoint x="870" y="210" />
-        <di:waypoint x="1032" y="210" />
+        <di:waypoint x="867" y="210" />
+        <di:waypoint x="1029" y="210" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0itvwg9_di" bpmnElement="Lane_0itvwg9" isHorizontal="true">
+        <dc:Bounds x="212" y="110" width="905" height="400" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1wle22k_di" bpmnElement="SequenceFlow_1wle22k">
+        <di:waypoint x="557" y="250" />
+        <di:waypoint x="557" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0k7hxyf_di" bpmnElement="Task_0njn7uc">
+        <dc:Bounds x="507" y="380" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0an4kmo_di" bpmnElement="SequenceFlow_0an4kmo">
+        <di:waypoint x="607" y="420" />
+        <di:waypoint x="687" y="420" />
+        <di:waypoint x="687" y="210" />
+        <di:waypoint x="767" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0yt2cai_di" bpmnElement="Lane_0yt2cai" isHorizontal="true">
+        <dc:Bounds x="182" y="310" width="935" height="200" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
