@@ -16,4 +16,16 @@ public class MyBean {
 	public void doSomethingWithParameter(String param) {
 		Log.info("Chamando doSomethingWithParameter(" + param + ") de MyBean");
 	}
+	
+	public void doSomethingOnCreateTask() {
+		Log.info("Chamando doSomethingOnCreateTask() de MyBean");
+	}
+	
+	public void doSomethingOnAssign() {
+		Log.info("Chamando doSomethingOnAssign() de MyBean");
+	}
+	
+	public void doSomethingOnComplete() {
+		Log.info("Chamando doSomethingOnComplete() de MyBean");
+	}
 }

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0tysk5k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <bpmn:collaboration id="Collaboration_1dwxfbn">
+    <bpmn:participant id="MainParticipant" name="Main" processRef="MainProcess" />
+    <bpmn:participant id="CallbackProcessParticipant" name="Callback" processRef="CallbackProcess" />
+    <bpmn:messageFlow id="SendCallbackMessageFlow" sourceRef="IntermediateThrowEvent_0rug4i0" targetRef="ReceiveCallback_IntermediateThrowEvent" />
+  </bpmn:collaboration>
+  <bpmn:process id="MainProcess" name="CallbackExampleProcess" isExecutable="true" camunda:versionTag="1">
+    <bpmn:laneSet id="LaneSet_1ruhurt">
+      <bpmn:lane id="Lane_1rxgyol">
+        <bpmn:flowNodeRef>SendMessage_IntermediateThrowEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_04uyt3t</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1qf6nf9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1tpx0eb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1ap7gam</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ReceiveCallback_IntermediateThrowEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ParallelGatewayEnd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ParallelGatewayStart</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:intermediateThrowEvent id="SendMessage_IntermediateThrowEvent" name="Send Message" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_135k65x</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1k8m0y3</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_055fgnt" messageRef="Message_0jxd7p8" camunda:delegateExpression="${sendMessageDelegate}" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:startEvent id="StartEvent_04uyt3t" camunda:asyncBefore="true">
+      <bpmn:outgoing>SequenceFlow_0xincey</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_1qf6nf9" name="A Task" camunda:asyncBefore="true" camunda:expression="${myBean.doSomething()}">
+      <bpmn:incoming>SequenceFlow_0xincey</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1a5glh5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1tpx0eb" name="Other Task" camunda:asyncBefore="true" camunda:expression="${myBean.doSomething()}">
+      <bpmn:incoming>SequenceFlow_0iucw18</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_11rs9yi</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_1ap7gam" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_11rs9yi</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="ReceiveCallback_IntermediateThrowEvent" name="Receive Callback" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_1ijy9fw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09yft73</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1jxzlj9" messageRef="Message_0jxd7p8" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1ijy9fw" sourceRef="ParallelGatewayStart" targetRef="ReceiveCallback_IntermediateThrowEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_09yft73" sourceRef="ReceiveCallback_IntermediateThrowEvent" targetRef="ParallelGatewayEnd" />
+    <bpmn:sequenceFlow id="SequenceFlow_135k65x" sourceRef="ParallelGatewayStart" targetRef="SendMessage_IntermediateThrowEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_1k8m0y3" sourceRef="SendMessage_IntermediateThrowEvent" targetRef="ParallelGatewayEnd" />
+    <bpmn:sequenceFlow id="SequenceFlow_0xincey" sourceRef="StartEvent_04uyt3t" targetRef="Task_1qf6nf9" />
+    <bpmn:sequenceFlow id="SequenceFlow_1a5glh5" sourceRef="Task_1qf6nf9" targetRef="ParallelGatewayStart" />
+    <bpmn:sequenceFlow id="SequenceFlow_0iucw18" sourceRef="ParallelGatewayEnd" targetRef="Task_1tpx0eb" />
+    <bpmn:sequenceFlow id="SequenceFlow_11rs9yi" sourceRef="Task_1tpx0eb" targetRef="EndEvent_1ap7gam" />
+    <bpmn:parallelGateway id="ParallelGatewayEnd" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_09yft73</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1k8m0y3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0iucw18</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="ParallelGatewayStart" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_1a5glh5</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ijy9fw</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_135k65x</bpmn:outgoing>
+    </bpmn:parallelGateway>
+  </bpmn:process>
+  <bpmn:process id="CallbackProcess" name="CallbackProcess" isExecutable="false" camunda:versionTag="1">
+    <bpmn:startEvent id="CallbackStartEvent" name="Callback" camunda:asyncBefore="true">
+      <bpmn:outgoing>SequenceFlow_0m2lcca</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_074kglt" messageRef="Message_0jxd7p8" />
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_0vlvo21" name="Callback Other Task" camunda:asyncBefore="true" camunda:expression="${myBean.doSomething()}">
+      <bpmn:incoming>SequenceFlow_0bjj3o9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0rdnso0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_08df38q" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_0rdnso0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_12duxt7" sourceRef="Task_0lekb6s" targetRef="IntermediateThrowEvent_0rug4i0" />
+    <bpmn:sequenceFlow id="SequenceFlow_0m2lcca" sourceRef="CallbackStartEvent" targetRef="Task_0lekb6s" />
+    <bpmn:sequenceFlow id="SequenceFlow_0bjj3o9" sourceRef="IntermediateThrowEvent_0rug4i0" targetRef="Task_0vlvo21" />
+    <bpmn:sequenceFlow id="SequenceFlow_0rdnso0" sourceRef="Task_0vlvo21" targetRef="EndEvent_08df38q" />
+    <bpmn:serviceTask id="Task_0lekb6s" name="Callback Task" camunda:asyncBefore="true" camunda:expression="${myBean.doSomething()}">
+      <bpmn:incoming>SequenceFlow_0m2lcca</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12duxt7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0rug4i0" name="Send Callback" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_12duxt7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0bjj3o9</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hm7i6g" messageRef="Message_0jxd7p8" camunda:delegateExpression="${throwMessageDelegate}" />
+    </bpmn:intermediateThrowEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_0jxd7p8" name="callback" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1dwxfbn">
+      <bpmndi:BPMNShape id="Participant_1l03l73_di" bpmnElement="MainParticipant" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="881" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1rxgyol_di" bpmnElement="Lane_1rxgyol" isHorizontal="true">
+        <dc:Bounds x="159" y="80" width="851" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_04uyt3t_di" bpmnElement="StartEvent_04uyt3t">
+        <dc:Bounds x="172" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xincey_di" bpmnElement="SequenceFlow_0xincey">
+        <di:waypoint x="208" y="220" />
+        <di:waypoint x="250" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0mj558o_di" bpmnElement="Task_1qf6nf9">
+        <dc:Bounds x="250" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_15bqkb3_di" bpmnElement="CallbackProcessParticipant" isHorizontal="true">
+        <dc:Bounds x="129" y="470" width="881" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m2lcca_di" bpmnElement="SequenceFlow_0m2lcca">
+        <di:waypoint x="238" y="600" />
+        <di:waypoint x="310" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_07ce2yg_di" bpmnElement="ReceiveCallback_IntermediateThrowEvent">
+        <dc:Bounds x="522" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="497" y="268" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0axwg0c_di" bpmnElement="Task_0lekb6s">
+        <dc:Bounds x="310" y="560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_12duxt7_di" bpmnElement="SequenceFlow_12duxt7">
+        <di:waypoint x="410" y="600" />
+        <di:waypoint x="522" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_09f358i_di" bpmnElement="IntermediateThrowEvent_0rug4i0">
+        <dc:Bounds x="522" y="582" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="504" y="625" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_1wq9mxn_di" bpmnElement="SendCallbackMessageFlow">
+        <di:waypoint x="540" y="582" />
+        <di:waypoint x="540" y="328" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_02ncbz8_di" bpmnElement="Task_1tpx0eb">
+        <dc:Bounds x="730" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0j2xgff_di" bpmnElement="CallbackStartEvent">
+        <dc:Bounds x="202" y="582" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="199" y="625" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1ap7gam_di" bpmnElement="EndEvent_1ap7gam">
+        <dc:Bounds x="932" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_11rs9yi_di" bpmnElement="SequenceFlow_11rs9yi">
+        <di:waypoint x="830" y="220" />
+        <di:waypoint x="932" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bjj3o9_di" bpmnElement="SequenceFlow_0bjj3o9">
+        <di:waypoint x="558" y="600" />
+        <di:waypoint x="700" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1065dwn_di" bpmnElement="Task_0vlvo21">
+        <dc:Bounds x="700" y="560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_08df38q_di" bpmnElement="EndEvent_08df38q">
+        <dc:Bounds x="912" y="582" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rdnso0_di" bpmnElement="SequenceFlow_0rdnso0">
+        <di:waypoint x="800" y="600" />
+        <di:waypoint x="912" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1a5glh5_di" bpmnElement="SequenceFlow_1a5glh5">
+        <di:waypoint x="350" y="220" />
+        <di:waypoint x="405" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ijy9fw_di" bpmnElement="SequenceFlow_1ijy9fw">
+        <di:waypoint x="430" y="245" />
+        <di:waypoint x="430" y="310" />
+        <di:waypoint x="522" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09yft73_di" bpmnElement="SequenceFlow_09yft73">
+        <di:waypoint x="558" y="310" />
+        <di:waypoint x="650" y="310" />
+        <di:waypoint x="650" y="245" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_135k65x_di" bpmnElement="SequenceFlow_135k65x">
+        <di:waypoint x="430" y="195" />
+        <di:waypoint x="430" y="130" />
+        <di:waypoint x="522" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0jpbwlo_di" bpmnElement="SendMessage_IntermediateThrowEvent">
+        <dc:Bounds x="522" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="504" y="155" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1k8m0y3_di" bpmnElement="SequenceFlow_1k8m0y3">
+        <di:waypoint x="558" y="130" />
+        <di:waypoint x="650" y="130" />
+        <di:waypoint x="650" y="195" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0iucw18_di" bpmnElement="SequenceFlow_0iucw18">
+        <di:waypoint x="675" y="220" />
+        <di:waypoint x="730" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_1g9dbm6_di" bpmnElement="ParallelGatewayEnd">
+        <dc:Bounds x="625" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ParallelGateway_0clvea5_di" bpmnElement="ParallelGatewayStart">
+        <dc:Bounds x="405" y="195" width="50" height="50" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
