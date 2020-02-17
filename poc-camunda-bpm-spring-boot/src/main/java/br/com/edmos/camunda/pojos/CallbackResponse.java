@@ -1,6 +1,8 @@
 package br.com.edmos.camunda.pojos;
 
-public class CallbackResponse {
+import java.io.Serializable;
+
+public class CallbackResponse implements Serializable {
 	
 	private String correlationId;
 

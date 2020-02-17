@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.edmos.camunda.pojos.CallbackResponse;
+import br.com.edmos.camunda.pojos.StartProcessResponse;
 
 @RestController
 public class CallbackService {
@@ -35,6 +36,17 @@ public class CallbackService {
 				.correlateWithResult();
 		
 		response.setCorrelationId(result.toString());
+		
+		return response;
+	}
+	
+	@PostMapping("/start")
+	public StartProcessResponse mainProcessStart(@RequestParam(name = "businessKey")String businessKey) {
+		ProcessInstance pi = runtimeService.startProcessInstanceByKey("MainProcess", businessKey);
+		String processId = pi.getProcessInstanceId();
+		StartProcessResponse response = new StartProcessResponse(processId, businessKey);
+		
+		runtimeService.setVariableLocal(processId, "correlation", processId);
 		
 		return response;
 	}

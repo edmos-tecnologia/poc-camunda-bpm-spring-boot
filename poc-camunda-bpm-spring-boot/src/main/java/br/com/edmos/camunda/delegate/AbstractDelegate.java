@@ -15,7 +15,7 @@ public class AbstractDelegate implements JavaDelegate {
 	 * @author Eduardo Ramos
 	 */
 	public void execute(DelegateExecution execution) throws Exception {
-		Log.info(execution.getEventName() + " is Executing " + getClass().getName() + ".");
+		Log.info("Executing " + getClass().getName() + ".");
 	}
 
 }
