@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1rv27ap" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1rv27ap" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
   <bpmn:collaboration id="Collaboration_0et5l99">
     <bpmn:participant id="CatFactProcessParticipant" name="Cat Fact Process" processRef="CatFactProcess" />
+    <bpmn:group id="Group_1qoqv2z" categoryValueRef="CategoryValue_03or7q2" />
   </bpmn:collaboration>
   <bpmn:process id="CatFactProcess" name="CatFactProcess" isExecutable="true" camunda:versionTag="1">
     <bpmn:startEvent id="StartEvent" name="Start" camunda:asyncBefore="true">
@@ -39,7 +40,14 @@
       <bpmn:incoming>SequenceFlow_1h1n6a8</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1h1n6a8" sourceRef="Task_01f02r3" targetRef="EndEvent_1bv1ezk" />
+    <bpmn:textAnnotation id="TextAnnotation_15q7o3l">
+      <bpmn:text>https://cat-fact.herokuapp.com/facts/random</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_087pv04" sourceRef="Task_0nec4qt" targetRef="TextAnnotation_15q7o3l" />
   </bpmn:process>
+  <bpmn:category id="Category_09gwzgd">
+    <bpmn:categoryValue id="CategoryValue_03or7q2" />
+  </bpmn:category>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0et5l99">
       <bpmndi:BPMNShape id="Participant_0gyxcyh_di" bpmnElement="CatFactProcessParticipant" isHorizontal="true">
@@ -85,6 +93,16 @@
         <di:waypoint x="750" y="240" />
         <di:waypoint x="842" y="240" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_15q7o3l_di" bpmnElement="TextAnnotation_15q7o3l" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="430" y="90" width="295" height="35" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_087pv04_di" bpmnElement="Association_087pv04" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <di:waypoint x="380" y="213" />
+        <di:waypoint x="546" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Group_1qoqv2z_di" bpmnElement="Group_1qoqv2z" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="260" y="160" width="540" height="210" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

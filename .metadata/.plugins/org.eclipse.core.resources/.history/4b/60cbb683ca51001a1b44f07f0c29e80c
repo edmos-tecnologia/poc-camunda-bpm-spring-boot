@@ -1,0 +1,5 @@
+package br.com.edmos.camunda.delegate;
+
+public class CatFactDelegate extends AbstractDelegate {
+
+}

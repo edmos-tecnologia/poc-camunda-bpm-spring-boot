@@ -1,0 +1,8 @@
+package br.com.edmos.camunda.delegate;
+
+import org.springframework.stereotype.Component;
+
+@Component("catFactDelegate")
+public class CatFactDelegate extends AbstractDelegate {
+
+}
