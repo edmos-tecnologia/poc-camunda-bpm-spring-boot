@@ -76,6 +76,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1p3a9qk" sourceRef="Task_1sx61ha" targetRef="Task_0yrmnxy" />
     <bpmn:sequenceFlow id="SequenceFlow_0anb1sd" sourceRef="Task_0084xej" targetRef="Task_03rm31k" />
   </bpmn:process>
+  <bpmn:signal id="Signal_090xqcz" name="Receiver" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="PessoaFisicaProcessCollaboration">
       <bpmndi:BPMNShape id="Participant_1pn1fux_di" bpmnElement="MainParticipant" isHorizontal="true">

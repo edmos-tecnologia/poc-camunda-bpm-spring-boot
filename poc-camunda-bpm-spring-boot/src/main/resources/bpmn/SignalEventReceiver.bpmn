@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0x3atf7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <bpmn:collaboration id="Collaboration_1hbbspa">
+    <bpmn:participant id="SignalEventReceiverParticipant" name="Signal Event Receiver" processRef="SignalEventReceiver" />
+  </bpmn:collaboration>
+  <bpmn:process id="SignalEventReceiver" name="SignalEventReceiver" isExecutable="true" camunda:versionTag="1">
+    <bpmn:startEvent id="SignalEventReceiverStartEvent" name="Receiver" camunda:asyncBefore="true">
+      <bpmn:outgoing>SequenceFlow_0tnzbt0</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_01klbwr" signalRef="Signal_1r844rc" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1g6axau">
+      <bpmn:incoming>SequenceFlow_1o1di71</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Task_02ounn8" name="Do Something" camunda:asyncBefore="true" camunda:delegateExpression="${signalReceiverDelegate}">
+      <bpmn:incoming>SequenceFlow_0tnzbt0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1o1di71</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0tnzbt0" sourceRef="SignalEventReceiverStartEvent" targetRef="Task_02ounn8" />
+    <bpmn:sequenceFlow id="SequenceFlow_1o1di71" sourceRef="Task_02ounn8" targetRef="EndEvent_1g6axau" />
+  </bpmn:process>
+  <bpmn:signal id="Signal_1r844rc" name="Receiver" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1hbbspa">
+      <bpmndi:BPMNShape id="Participant_00k7djm_di" bpmnElement="SignalEventReceiverParticipant" isHorizontal="true">
+        <dc:Bounds x="129" y="79" width="600" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1jg23sw_di" bpmnElement="SignalEventReceiverStartEvent">
+        <dc:Bounds x="192" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="188" y="225" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tnzbt0_di" bpmnElement="SequenceFlow_0tnzbt0">
+        <di:waypoint x="228" y="200" />
+        <di:waypoint x="320" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1dr5cag_di" bpmnElement="Task_02ounn8">
+        <dc:Bounds x="320" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1g6axau_di" bpmnElement="EndEvent_1g6axau">
+        <dc:Bounds x="502" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1o1di71_di" bpmnElement="SequenceFlow_1o1di71">
+        <di:waypoint x="420" y="200" />
+        <di:waypoint x="502" y="200" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
