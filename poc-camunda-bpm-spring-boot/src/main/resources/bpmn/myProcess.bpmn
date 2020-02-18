@@ -17,6 +17,7 @@
         <bpmn:flowNodeRef>myTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>myServiceTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_07h360x</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_0c4atmw</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_02zllnh" />
       </bpmn:lane>
     </bpmn:laneSet>
@@ -35,6 +36,7 @@
         <camunda:taskListener expression="${myBean.doSomethingOnComplete()}" event="complete" />
       </bpmn:extensionElements>
       <bpmn:incoming>toMyTask</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1yn5qj5</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1h1yhtj</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="myServiceTask" name="My Service" camunda:asyncBefore="true" camunda:delegateExpression="${doService}">
@@ -52,8 +54,14 @@
       <bpmn:incoming>SequenceFlow_15akdf9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_09g0pzi</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_0c4atmw">
+      <bpmn:outgoing>SequenceFlow_1yn5qj5</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1f827s7" signalRef="Signal_013u03o" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1yn5qj5" sourceRef="StartEvent_0c4atmw" targetRef="myTask" />
   </bpmn:process>
   <bpmn:message id="Message_1hs210p" />
+  <bpmn:signal id="Signal_013u03o" name="Receiver" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MainPool">
       <bpmndi:BPMNShape id="Participant_0n0l9ua_di" bpmnElement="Participant_0n0l9ua" isHorizontal="true" bioc:stroke="black" bioc:fill="white">
@@ -93,6 +101,14 @@
       <bpmndi:BPMNShape id="UserTask_02mgkko_di" bpmnElement="Task_07h360x">
         <dc:Bounds x="780" y="180" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_18a2xyh_di" bpmnElement="StartEvent_0c4atmw">
+        <dc:Bounds x="272" y="312" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1yn5qj5_di" bpmnElement="SequenceFlow_1yn5qj5">
+        <di:waypoint x="308" y="330" />
+        <di:waypoint x="410" y="330" />
+        <di:waypoint x="410" y="260" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

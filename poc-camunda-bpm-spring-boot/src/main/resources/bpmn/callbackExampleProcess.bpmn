@@ -58,7 +58,11 @@
     <bpmn:intermediateThrowEvent id="SendMessage_IntermediateThrowEvent" name="Send Signal" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_135k65x</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1k8m0y3</bpmn:outgoing>
-      <bpmn:signalEventDefinition id="SignalEventDefinition_1akeo8k" signalRef="Signal_14bwd9u" />
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1akeo8k" signalRef="Signal_14bwd9u">
+        <bpmn:extensionElements>
+          <camunda:in sourceExpression="${execution.processBusinessKey}" target="businessKey" />
+        </bpmn:extensionElements>
+      </bpmn:signalEventDefinition>
     </bpmn:intermediateThrowEvent>
   </bpmn:process>
   <bpmn:process id="CallbackProcess" name="CallbackExampleCallbackProcess" isExecutable="true" camunda:versionTag="1">

@@ -38,9 +38,6 @@
       <bpmn:outgoing>SequenceFlow_0ja4nrq</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0wt8uj7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_0xqll5i">
-      <bpmn:incoming>SequenceFlow_0wt8uj7</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:serviceTask id="Task_1sx61ha" name="Set Current Index" camunda:expression="${getEnderecoPessoaDelegate.setCurrentIndex(currentEndereco + 1)}">
       <bpmn:incoming>SequenceFlow_031mpll</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1p3a9qk</bpmn:outgoing>
@@ -75,6 +72,9 @@
     <bpmn:sequenceFlow id="SequenceFlow_031mpll" sourceRef="Task_1hl6o9w" targetRef="Task_1sx61ha" />
     <bpmn:sequenceFlow id="SequenceFlow_1p3a9qk" sourceRef="Task_1sx61ha" targetRef="Task_0yrmnxy" />
     <bpmn:sequenceFlow id="SequenceFlow_0anb1sd" sourceRef="Task_0084xej" targetRef="Task_03rm31k" />
+    <bpmn:endEvent id="EndEvent_0xqll5i">
+      <bpmn:incoming>SequenceFlow_0wt8uj7</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:signal id="Signal_090xqcz" name="Receiver" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -129,9 +129,6 @@
       <bpmndi:BPMNShape id="UserTask_1ykgk4k_di" bpmnElement="Task_1e563ci">
         <dc:Bounds x="480" y="270" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0xqll5i_di" bpmnElement="EndEvent_0xqll5i">
-        <dc:Bounds x="1432" y="502" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_103m9zy_di" bpmnElement="SequenceFlow_103m9zy">
         <di:waypoint x="580" y="310" />
         <di:waypoint x="650" y="310" />
@@ -160,7 +157,7 @@
         <di:waypoint x="1185" y="520" />
         <di:waypoint x="750" y="520" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="944" y="502" width="19" height="14" />
+          <dc:Bounds x="943" y="502" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0wt8uj7_di" bpmnElement="SequenceFlow_0wt8uj7">
@@ -188,6 +185,9 @@
         <di:waypoint x="700" y="480" />
         <di:waypoint x="700" y="350" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0xqll5i_di" bpmnElement="EndEvent_0xqll5i">
+        <dc:Bounds x="1432" y="502" width="36" height="36" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

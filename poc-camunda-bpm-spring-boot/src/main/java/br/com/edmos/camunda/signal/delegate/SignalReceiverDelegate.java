@@ -13,5 +13,4 @@ public class SignalReceiverDelegate extends AbstractDelegate {
 		super.execute(execution);
 		Log.info("###### Signal Received ######");
 	}
-	
 }
