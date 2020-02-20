@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_00fyq8a" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <decision id="SalaryDecision" name="Salary Amount" camunda:versionTag="1">
+    <extensionElements>
+      <biodi:bounds x="346" y="215" width="180" height="80" />
+      <biodi:edge source="InputData_0o2lmtb">
+        <biodi:waypoints x="249" y="250" />
+        <biodi:waypoints x="346" y="250" />
+      </biodi:edge>
+      <biodi:edge source="BusinessKnowledgeModel_11rqbfs">
+        <biodi:waypoints x="681" y="255" />
+        <biodi:waypoints x="526" y="257" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0o2lmtb" />
+    </informationRequirement>
+    <knowledgeRequirement>
+      <requiredKnowledge href="#BusinessKnowledgeModel_11rqbfs" />
+    </knowledgeRequirement>
+    <decisionTable id="DecisionTable_0a41uez">
+      <input id="InputClause_09ynztb" label="salaryLevel">
+        <inputExpression id="LiteralExpression_1s8oeo0" typeRef="string" />
+      </input>
+      <input id="InputClause_1l60vl6" label="salaryAmount">
+        <inputExpression id="LiteralExpression_0t338on" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0sx1brs" typeRef="string" />
+      <rule id="DecisionRule_09iw2zd">
+        <inputEntry id="UnaryTests_08vrcyr">
+          <text>"Analyst"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0opw1qi">
+          <text>&lt;= 1000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0itkeu8">
+          <text>"Eu sou POBRE!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1agdq74">
+        <inputEntry id="UnaryTests_194w4mr">
+          <text>"Manager"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u7mv4p">
+          <text>[1001..3000]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pwyz1o">
+          <text>"Tô na média..."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dk70hz">
+        <inputEntry id="UnaryTests_0avj6dw">
+          <text>"Supervisor"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14s71gu">
+          <text>&gt; 3000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d4b774">
+          <text>"Eu sou RICO!"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0o2lmtb" name="Input Data">
+    <extensionElements>
+      <biodi:bounds x="124" y="227" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_11rqbfs" name="Business Knowledge">
+    <extensionElements>
+      <biodi:bounds x="681" y="231" width="135" height="46" />
+    </extensionElements>
+  </businessKnowledgeModel>
+  <knowledgeSource id="KnowledgeSource_195tklh" name="Knowledge Source 1">
+    <extensionElements>
+      <biodi:bounds x="220" y="54" width="100" height="63" />
+      <biodi:edge source="SalaryDecision">
+        <biodi:waypoints x="397" y="215" />
+        <biodi:waypoints x="300" y="117" />
+      </biodi:edge>
+    </extensionElements>
+    <authorityRequirement>
+      <requiredDecision href="#SalaryDecision" />
+    </authorityRequirement>
+  </knowledgeSource>
+</definitions>
