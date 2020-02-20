@@ -22,7 +22,7 @@
         <bpmn:flowNodeRef>ExclusiveGateway_0x9bqvf</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0lcsos8">
-        <bpmn:flowNodeRef>Task_107d23m</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>VerifySalaryAmountTask</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0f8c3fn</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
@@ -86,14 +86,12 @@
       <bpmn:incoming>SequenceFlow_0ubb7x3</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1kv0y8m</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:businessRuleTask id="Task_107d23m" name="Verify Salary Amount" camunda:asyncBefore="true" camunda:resultVariable="salaryAmount" camunda:decisionRef="SalaryAmountDecision" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="VerifySalaryAmountTask" name="Verify Salary Amount" camunda:asyncBefore="true" camunda:resultVariable="salaryAmount" camunda:decisionRef="SalaryAmountDecision" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
       <bpmn:extensionElements>
-        <camunda:field name="salaryLevel">
-          <camunda:string>"Analyst"</camunda:string>
-        </camunda:field>
-        <camunda:field name="salaryAmount">
-          <camunda:string>980</camunda:string>
-        </camunda:field>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="salaryAmount">999</camunda:inputParameter>
+          <camunda:outputParameter name="validationResult" />
+        </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0u3wdfl</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0elju2a</bpmn:outgoing>
@@ -124,10 +122,10 @@
     <bpmn:sequenceFlow id="SequenceFlow_1p3a9qk" sourceRef="Task_1sx61ha" targetRef="Task_0yrmnxy" />
     <bpmn:sequenceFlow id="SequenceFlow_0nvo2mq" sourceRef="Task_03rm31k" targetRef="ExclusiveGateway_0z6fqls" />
     <bpmn:sequenceFlow id="SequenceFlow_1ldxfy2" sourceRef="ExclusiveGateway_0z6fqls" targetRef="Task_0yrmnxy" />
-    <bpmn:sequenceFlow id="SequenceFlow_0u3wdfl" sourceRef="ExclusiveGateway_0z6fqls" targetRef="Task_107d23m" />
+    <bpmn:sequenceFlow id="SequenceFlow_0u3wdfl" sourceRef="ExclusiveGateway_0z6fqls" targetRef="VerifySalaryAmountTask" />
     <bpmn:sequenceFlow id="SequenceFlow_0ubb7x3" sourceRef="Task_0f8c3fn" targetRef="ExclusiveGateway_0x9bqvf" />
     <bpmn:sequenceFlow id="SequenceFlow_1kv0y8m" sourceRef="ExclusiveGateway_0x9bqvf" targetRef="EndEvent_0xqll5i" />
-    <bpmn:sequenceFlow id="SequenceFlow_0elju2a" sourceRef="Task_107d23m" targetRef="Task_0f8c3fn" />
+    <bpmn:sequenceFlow id="SequenceFlow_0elju2a" sourceRef="VerifySalaryAmountTask" targetRef="Task_0f8c3fn" />
   </bpmn:process>
   <bpmn:signal id="Signal_090xqcz" name="Receiver" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -258,7 +256,7 @@
         <di:waypoint x="860" y="505" />
         <di:waypoint x="860" y="220" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BusinessRuleTask_1tb19fy_di" bpmnElement="Task_107d23m">
+      <bpmndi:BPMNShape id="BusinessRuleTask_1tb19fy_di" bpmnElement="VerifySalaryAmountTask">
         <dc:Bounds x="810" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0elju2a_di" bpmnElement="SequenceFlow_0elju2a">
