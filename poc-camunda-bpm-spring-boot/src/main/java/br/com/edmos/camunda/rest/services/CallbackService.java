@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.edmos.camunda.pojos.CallbackResponse;
 import br.com.edmos.camunda.pojos.StartProcessResponse;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 public class CallbackService {
-	
-	protected static Logger Log = LoggerFactory.getLogger(CallbackService.class);
 
 	@Autowired
 	private RuntimeService runtimeService;
@@ -30,7 +30,9 @@ public class CallbackService {
 				.processInstanceBusinessKey(pi.getBusinessKey())
 				.setVariable("callbackStatus", "Callback started")
 				.correlateWithResult();
-				
+		
+		log.info("##### Calling callbackStart");
+		
 		return ResponseEntity.ok(new CallbackResponse(pi.getRootProcessInstanceId(), businessKey));
 	}
 	
@@ -41,6 +43,8 @@ public class CallbackService {
 		StartProcessResponse response = new StartProcessResponse(processId, businessKey);
 		
 		runtimeService.setVariable(processId, "correlation", response);
+		
+		log.info("##### Calling mainProcessStart");
 		
 		return ResponseEntity.ok(response);
 	}
