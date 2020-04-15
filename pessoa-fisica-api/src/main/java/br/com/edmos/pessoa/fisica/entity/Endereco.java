@@ -1,4 +1,4 @@
-package br.com.edmos.pessoa.fisica.pojos;
+package br.com.edmos.pessoa.fisica.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Endereco extends BasePojo {
+public class Endereco extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "endereco_sequence")
 	private Integer id;

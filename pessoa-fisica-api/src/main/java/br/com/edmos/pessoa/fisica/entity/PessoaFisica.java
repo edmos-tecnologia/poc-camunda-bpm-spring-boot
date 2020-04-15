@@ -1,4 +1,4 @@
-package br.com.edmos.pessoa.fisica.pojos;
+package br.com.edmos.pessoa.fisica.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PessoaFisica extends BasePojo {
+public class PessoaFisica extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "pessoa_sequence")
 	private @NonNull Integer id;

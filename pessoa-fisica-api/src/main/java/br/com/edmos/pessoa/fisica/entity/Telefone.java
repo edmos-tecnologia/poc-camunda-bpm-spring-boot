@@ -1,4 +1,4 @@
-package br.com.edmos.pessoa.fisica.pojos;
+package br.com.edmos.pessoa.fisica.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Telefone extends BasePojo {
+public class Telefone extends BaseEntity {
 	private String codigoPais;
 	
 	private String codigoUf;

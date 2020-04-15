@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.edmos.jpa.repository.EnderecoRepository;
 import br.com.edmos.jpa.repository.PessoaFisicaRepository;
-import br.com.edmos.pessoa.fisica.pojos.PessoaFisica;
+import br.com.edmos.pessoa.fisica.entity.PessoaFisica;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
