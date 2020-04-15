@@ -15,6 +15,7 @@ spring:
          hibernate:
             dialect: org.hibernate.dialect.SQLiteDialect
             show-sql: true
+            format_sql: true
             hbm2ddl:
 #               auto: create-drop
                auto: update

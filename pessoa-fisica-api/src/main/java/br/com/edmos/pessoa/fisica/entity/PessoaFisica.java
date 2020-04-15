@@ -25,7 +25,7 @@ import lombok.Setter;
 public class PessoaFisica extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "pessoa_sequence")
-	private @NonNull Integer id;
+	private Long id;
 	
 	@Column
 	private String primeiroNome;
