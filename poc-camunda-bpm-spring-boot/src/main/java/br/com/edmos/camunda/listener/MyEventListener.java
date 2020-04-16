@@ -2,9 +2,9 @@ package br.com.edmos.camunda.listener;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -12,12 +12,11 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component("myEventListener")
+@Slf4j
 public class MyEventListener implements ExecutionListener {
 	
-	private static Logger Log = LoggerFactory.getLogger(MyEventListener.class);
-	
 	public void notify(DelegateExecution execution) throws Exception {
-		Log.info("Chamando evento MyEventListener");
+		log.info("Chamando evento MyEventListener");
 	}
 
 }

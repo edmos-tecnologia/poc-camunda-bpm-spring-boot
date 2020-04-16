@@ -58,7 +58,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MainPool">
       <bpmndi:BPMNShape id="Participant_0n0l9ua_di" bpmnElement="Participant_0n0l9ua" isHorizontal="true" bioc:stroke="black" bioc:fill="white">
-        <dc:Bounds x="152" y="60" width="965" height="320" />
+        <dc:Bounds x="152" y="60" width="965" height="340" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0wtzq6w_di" bpmnElement="EndEvent" bioc:stroke="black" bioc:fill="white">
         <dc:Bounds x="952" y="202" width="36" height="36" />
@@ -77,7 +77,7 @@
         <di:waypoint x="360" y="220" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Lane_1e4ywqa_di" bpmnElement="Lane_1e4ywqa" isHorizontal="true" bioc:stroke="black" bioc:fill="white">
-        <dc:Bounds x="182" y="60" width="935" height="320" />
+        <dc:Bounds x="182" y="60" width="935" height="340" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1h1yhtj_di" bpmnElement="SequenceFlow_1h1yhtj">
         <di:waypoint x="460" y="220" />
