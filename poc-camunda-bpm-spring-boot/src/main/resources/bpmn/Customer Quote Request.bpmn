@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:trisobpmn="http://www.trisotech.com/2014/triso/bpmn" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:rss="http://purl.org/rss/2.0/" xmlns="http://www.trisotech.com/definitions/_1363713133145" id="_1363713133145" name="Customer Quote Request" targetNamespace="http://www.trisotech.com/definitions/_1363713133145" exporter="Camunda Modeler" exporterVersion="3.6.0" trisobpmn:logoChoice="Default">
+  <semantic:collaboration id="C1401821445522" name="Customer Quotation Request" triso:defaultName="true">
+    <semantic:participant id="_36885d75-adb7-41c6-b0c8-44454100a39e" name="Order Management" processRef="WFP-6-2" />
+  </semantic:collaboration>
+  <semantic:process id="WFP-6-2" name="Customer Quotation Request - Order Management - Process" isExecutable="false" triso:defaultName="true">
+    <semantic:laneSet>
+      <semantic:lane id="_22c96b61-ea3d-4afb-b577-8ca4e3f07d7e" name="System">
+        <semantic:flowNodeRef>_78b71d30-392c-4d73-8ad4-f55852a4c7ef</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_25f36b74-276a-44a0-a0e3-073850702ef3</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_8fe4e6f6-069e-4660-8167-7b455168f649</semantic:flowNodeRef>
+        <semantic:flowNodeRef>Quote_Cancellation_Notification</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_5782bfa3-61d0-4093-95a9-3740af4001b3</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_b7b16098-5908-4be9-815e-1965781baa5d</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_2b484811-f6e9-4cff-bc6a-9b53552affb7</semantic:flowNodeRef>
+        <semantic:flowNodeRef>Order_Processing_Notification</semantic:flowNodeRef>
+      </semantic:lane>
+      <semantic:lane id="_5623991a-5383-4082-a352-6c55e97c246e" name="Manager">
+        <semantic:flowNodeRef>_b546e1a4-026c-4665-b7e2-4a8922fe48ac</semantic:flowNodeRef>
+        <semantic:flowNodeRef>Quote_Request_Denial</semantic:flowNodeRef>
+        <semantic:flowNodeRef>IntermediateThrowEvent_1jeolkt</semantic:flowNodeRef>
+      </semantic:lane>
+      <semantic:lane id="_9f0aab84-f83f-4c3a-ab30-abcc4a71961e" name="Representative">
+        <semantic:flowNodeRef>_5ded1e06-7e85-4d14-937a-f09da4229573</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_e03d3779-04d8-4e00-abd5-aaf0e433cc1f</semantic:flowNodeRef>
+        <semantic:flowNodeRef>IntermediateThrowEvent_04yla10</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_2e9ea99b-2476-4a91-a204-80eef62295f1</semantic:flowNodeRef>
+      </semantic:lane>
+      <semantic:lane id="Lane_0wk6cba">
+        <semantic:flowNodeRef>SubProcess_1hcpctj</semantic:flowNodeRef>
+      </semantic:lane>
+      <semantic:lane id="Lane_1u02zm9">
+        <semantic:flowNodeRef>SubProcess_18u19q2</semantic:flowNodeRef>
+      </semantic:lane>
+      <semantic:lane id="Lane_0fppj7k">
+        <semantic:flowNodeRef>SubProcess_05zvzlk</semantic:flowNodeRef>
+      </semantic:lane>
+    </semantic:laneSet>
+    <semantic:startEvent id="_5ded1e06-7e85-4d14-937a-f09da4229573" name="Quote Request">
+      <semantic:outgoing>_b6ba37f9-06ab-4fc7-a584-042f9be24146</semantic:outgoing>
+      <semantic:messageEventDefinition messageRef="Message_0qno6tz" />
+    </semantic:startEvent>
+    <semantic:subProcess id="SubProcess_1hcpctj" name="Denial Quote Request Handler" triggeredByEvent="true">
+      <semantic:startEvent id="StartEvent_1st2hx9">
+        <semantic:outgoing>SequenceFlow_007p6ta</semantic:outgoing>
+        <semantic:messageEventDefinition id="MessageEventDefinition_0jc9bi1" messageRef="Message_11phtqd" />
+      </semantic:startEvent>
+      <semantic:sequenceFlow id="SequenceFlow_007p6ta" sourceRef="StartEvent_1st2hx9" targetRef="Task_03ndaua" />
+      <semantic:endEvent id="EndEvent_1sabdw2">
+        <semantic:incoming>SequenceFlow_1kyjfq9</semantic:incoming>
+      </semantic:endEvent>
+      <semantic:sequenceFlow id="SequenceFlow_1kyjfq9" sourceRef="Task_03ndaua" targetRef="EndEvent_1sabdw2" />
+      <semantic:serviceTask id="Task_03ndaua" name="Denial Quote Request">
+        <semantic:incoming>SequenceFlow_007p6ta</semantic:incoming>
+        <semantic:outgoing>SequenceFlow_1kyjfq9</semantic:outgoing>
+      </semantic:serviceTask>
+    </semantic:subProcess>
+    <semantic:subProcess id="SubProcess_18u19q2" name="Order Processing Notification Handler" triggeredByEvent="true">
+      <semantic:startEvent id="StartEvent_0lzc69d">
+        <semantic:outgoing>SequenceFlow_05st5m1</semantic:outgoing>
+        <semantic:messageEventDefinition id="MessageEventDefinition_0dv4jg4" messageRef="Message_11cxj1t" />
+      </semantic:startEvent>
+      <semantic:endEvent id="EndEvent_0qqnul1">
+        <semantic:incoming>SequenceFlow_0053w15</semantic:incoming>
+      </semantic:endEvent>
+      <semantic:serviceTask id="ServiceTask_12l86rd" name="Notify Customer of Order Processing">
+        <semantic:incoming>SequenceFlow_05st5m1</semantic:incoming>
+        <semantic:outgoing>SequenceFlow_0053w15</semantic:outgoing>
+      </semantic:serviceTask>
+      <semantic:sequenceFlow id="SequenceFlow_05st5m1" sourceRef="StartEvent_0lzc69d" targetRef="ServiceTask_12l86rd" />
+      <semantic:sequenceFlow id="SequenceFlow_0053w15" sourceRef="ServiceTask_12l86rd" targetRef="EndEvent_0qqnul1" />
+    </semantic:subProcess>
+    <semantic:subProcess id="SubProcess_05zvzlk" name="Quote Cancellation Notification Handler" triggeredByEvent="true">
+      <semantic:startEvent id="StartEvent_1t7iz5z">
+        <semantic:outgoing>SequenceFlow_0ojwke1</semantic:outgoing>
+        <semantic:messageEventDefinition id="MessageEventDefinition_1rmhyqn" messageRef="Message_1ip1sk6" />
+      </semantic:startEvent>
+      <semantic:endEvent id="EndEvent_07ifs8m">
+        <semantic:incoming>SequenceFlow_0jgbmcw</semantic:incoming>
+      </semantic:endEvent>
+      <semantic:serviceTask id="ServiceTask_1jp6f9c" name="Notify Customer of Quote Cancellation">
+        <semantic:incoming>SequenceFlow_0ojwke1</semantic:incoming>
+        <semantic:outgoing>SequenceFlow_0jgbmcw</semantic:outgoing>
+      </semantic:serviceTask>
+      <semantic:sequenceFlow id="SequenceFlow_0ojwke1" sourceRef="StartEvent_1t7iz5z" targetRef="ServiceTask_1jp6f9c" />
+      <semantic:sequenceFlow id="SequenceFlow_0jgbmcw" sourceRef="ServiceTask_1jp6f9c" targetRef="EndEvent_07ifs8m" />
+    </semantic:subProcess>
+    <semantic:sequenceFlow id="_e93bc7d2-2bcf-4f4f-ad2d-97581eaa31f9" name="Refusal" sourceRef="_b546e1a4-026c-4665-b7e2-4a8922fe48ac" targetRef="Quote_Request_Denial" />
+    <semantic:sequenceFlow id="_03cd0fbd-1fa5-41a9-85d3-cc4480813acb" name="Proved as Produced" sourceRef="_b546e1a4-026c-4665-b7e2-4a8922fe48ac" targetRef="_2b484811-f6e9-4cff-bc6a-9b53552affb7" triso:userConstraints="true" />
+    <semantic:sequenceFlow id="_1359fcf4-f084-4fd4-8e48-0ce275a826e4" name="Adjustments Required" sourceRef="_b546e1a4-026c-4665-b7e2-4a8922fe48ac" targetRef="_e03d3779-04d8-4e00-abd5-aaf0e433cc1f" triso:userConstraints="true" />
+    <semantic:sequenceFlow id="_b008ee56-54f9-4b72-86c8-d9200c707e27" sourceRef="_2b484811-f6e9-4cff-bc6a-9b53552affb7" targetRef="_b7b16098-5908-4be9-815e-1965781baa5d" />
+    <semantic:sequenceFlow id="_1bb10ddd-b5e9-4fde-b2d3-626d4292b5b8" sourceRef="_78b71d30-392c-4d73-8ad4-f55852a4c7ef" targetRef="_e03d3779-04d8-4e00-abd5-aaf0e433cc1f" />
+    <semantic:sequenceFlow id="_b6ba37f9-06ab-4fc7-a584-042f9be24146" sourceRef="_5ded1e06-7e85-4d14-937a-f09da4229573" targetRef="_2e9ea99b-2476-4a91-a204-80eef62295f1" />
+    <semantic:sequenceFlow id="SequenceFlow_0eyceby" sourceRef="_2e9ea99b-2476-4a91-a204-80eef62295f1" targetRef="IntermediateThrowEvent_04yla10" />
+    <semantic:sequenceFlow id="_fb388c42-aef4-4d1c-91d9-a6ce49bc89aa" sourceRef="_b7b16098-5908-4be9-815e-1965781baa5d" targetRef="_78b71d30-392c-4d73-8ad4-f55852a4c7ef" />
+    <semantic:sequenceFlow id="_76b570a7-a33e-4118-a52e-7fcfe1e1182c" sourceRef="_b7b16098-5908-4be9-815e-1965781baa5d" targetRef="_5782bfa3-61d0-4093-95a9-3740af4001b3" />
+    <semantic:sequenceFlow id="_262cd4dd-899d-4b68-8bc9-bd3bdcc68e53" sourceRef="_b7b16098-5908-4be9-815e-1965781baa5d" targetRef="_25f36b74-276a-44a0-a0e3-073850702ef3" />
+    <semantic:sequenceFlow id="_045cbdba-4faf-47e8-8190-aa7b6bbfe942" sourceRef="_b7b16098-5908-4be9-815e-1965781baa5d" targetRef="_3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f" />
+    <semantic:sequenceFlow id="_28d2483b-eb8a-47f4-83e2-d6889c9acebb" sourceRef="_25f36b74-276a-44a0-a0e3-073850702ef3" targetRef="Order_Processing_Notification" />
+    <semantic:sequenceFlow id="SequenceFlow_13dmbxc" sourceRef="IntermediateThrowEvent_04yla10" targetRef="IntermediateThrowEvent_1jeolkt" />
+    <semantic:inclusiveGateway id="_b546e1a4-026c-4665-b7e2-4a8922fe48ac">
+      <semantic:incoming>SequenceFlow_1djc3xg</semantic:incoming>
+      <semantic:outgoing>_e93bc7d2-2bcf-4f4f-ad2d-97581eaa31f9</semantic:outgoing>
+      <semantic:outgoing>_03cd0fbd-1fa5-41a9-85d3-cc4480813acb</semantic:outgoing>
+      <semantic:outgoing>_1359fcf4-f084-4fd4-8e48-0ce275a826e4</semantic:outgoing>
+    </semantic:inclusiveGateway>
+    <semantic:serviceTask id="_e03d3779-04d8-4e00-abd5-aaf0e433cc1f" name="Modify Customer&#10;Quotation">
+      <semantic:incoming>_1bb10ddd-b5e9-4fde-b2d3-626d4292b5b8</semantic:incoming>
+      <semantic:incoming>_1359fcf4-f084-4fd4-8e48-0ce275a826e4</semantic:incoming>
+    </semantic:serviceTask>
+    <semantic:intermediateCatchEvent id="_78b71d30-392c-4d73-8ad4-f55852a4c7ef" name="Proceed with Adjustments">
+      <semantic:incoming>_fb388c42-aef4-4d1c-91d9-a6ce49bc89aa</semantic:incoming>
+      <semantic:outgoing>_1bb10ddd-b5e9-4fde-b2d3-626d4292b5b8</semantic:outgoing>
+      <semantic:messageEventDefinition messageRef="Message_12h0vya" />
+    </semantic:intermediateCatchEvent>
+    <semantic:intermediateCatchEvent id="_25f36b74-276a-44a0-a0e3-073850702ef3" name="Proceed with Order">
+      <semantic:incoming>_262cd4dd-899d-4b68-8bc9-bd3bdcc68e53</semantic:incoming>
+      <semantic:outgoing>_28d2483b-eb8a-47f4-83e2-d6889c9acebb</semantic:outgoing>
+      <semantic:messageEventDefinition messageRef="Message_0f1cd7e" />
+    </semantic:intermediateCatchEvent>
+    <semantic:intermediateCatchEvent id="_3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f" name="5 Working Days">
+      <semantic:incoming>_045cbdba-4faf-47e8-8190-aa7b6bbfe942</semantic:incoming>
+      <semantic:outgoing>_1eec3272-1c01-4b46-9863-15eb0f1fa687</semantic:outgoing>
+      <semantic:timerEventDefinition>
+        <semantic:timeDuration xsi:type="semantic:tFormalExpression">P5D</semantic:timeDuration>
+      </semantic:timerEventDefinition>
+    </semantic:intermediateCatchEvent>
+    <semantic:serviceTask id="_8fe4e6f6-069e-4660-8167-7b455168f649" name="Cancel Quote">
+      <semantic:incoming>_c0180d85-bb23-4e54-9a33-80f2e88d1559</semantic:incoming>
+      <semantic:incoming>_1eec3272-1c01-4b46-9863-15eb0f1fa687</semantic:incoming>
+      <semantic:outgoing>_cd704fef-a25f-48c4-b946-3c2dc026ea80</semantic:outgoing>
+    </semantic:serviceTask>
+    <semantic:endEvent id="Quote_Cancellation_Notification" name="Quote Cancellation Notification">
+      <semantic:incoming>_cd704fef-a25f-48c4-b946-3c2dc026ea80</semantic:incoming>
+      <semantic:messageEventDefinition id="MessageEventDefinition_02l488a" messageRef="Message_1ip1sk6" />
+    </semantic:endEvent>
+    <semantic:sequenceFlow id="_c0180d85-bb23-4e54-9a33-80f2e88d1559" sourceRef="_5782bfa3-61d0-4093-95a9-3740af4001b3" targetRef="_8fe4e6f6-069e-4660-8167-7b455168f649" />
+    <semantic:sequenceFlow id="_1eec3272-1c01-4b46-9863-15eb0f1fa687" sourceRef="_3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f" targetRef="_8fe4e6f6-069e-4660-8167-7b455168f649" />
+    <semantic:sequenceFlow id="_cd704fef-a25f-48c4-b946-3c2dc026ea80" sourceRef="_8fe4e6f6-069e-4660-8167-7b455168f649" targetRef="Quote_Cancellation_Notification" />
+    <semantic:intermediateCatchEvent id="_5782bfa3-61d0-4093-95a9-3740af4001b3" name="Do Not Proceed Further">
+      <semantic:incoming>_76b570a7-a33e-4118-a52e-7fcfe1e1182c</semantic:incoming>
+      <semantic:outgoing>_c0180d85-bb23-4e54-9a33-80f2e88d1559</semantic:outgoing>
+      <semantic:messageEventDefinition messageRef="Message_0iwev7t" />
+    </semantic:intermediateCatchEvent>
+    <semantic:eventBasedGateway id="_b7b16098-5908-4be9-815e-1965781baa5d">
+      <semantic:incoming>_b008ee56-54f9-4b72-86c8-d9200c707e27</semantic:incoming>
+      <semantic:outgoing>_76b570a7-a33e-4118-a52e-7fcfe1e1182c</semantic:outgoing>
+      <semantic:outgoing>_fb388c42-aef4-4d1c-91d9-a6ce49bc89aa</semantic:outgoing>
+      <semantic:outgoing>_045cbdba-4faf-47e8-8190-aa7b6bbfe942</semantic:outgoing>
+      <semantic:outgoing>_262cd4dd-899d-4b68-8bc9-bd3bdcc68e53</semantic:outgoing>
+    </semantic:eventBasedGateway>
+    <semantic:serviceTask id="_2b484811-f6e9-4cff-bc6a-9b53552affb7" name="Send Quotation to Customer">
+      <semantic:incoming>_03cd0fbd-1fa5-41a9-85d3-cc4480813acb</semantic:incoming>
+      <semantic:outgoing>_b008ee56-54f9-4b72-86c8-d9200c707e27</semantic:outgoing>
+    </semantic:serviceTask>
+    <semantic:endEvent id="Quote_Request_Denial" name="Quote Request Denial">
+      <semantic:incoming>_e93bc7d2-2bcf-4f4f-ad2d-97581eaa31f9</semantic:incoming>
+      <semantic:messageEventDefinition messageRef="Message_11phtqd" />
+    </semantic:endEvent>
+    <semantic:sequenceFlow id="SequenceFlow_1djc3xg" sourceRef="IntermediateThrowEvent_1jeolkt" targetRef="_b546e1a4-026c-4665-b7e2-4a8922fe48ac" />
+    <semantic:intermediateCatchEvent id="IntermediateThrowEvent_1jeolkt" name="Receive Quotation Approved">
+      <semantic:incoming>SequenceFlow_13dmbxc</semantic:incoming>
+      <semantic:outgoing>SequenceFlow_1djc3xg</semantic:outgoing>
+      <semantic:messageEventDefinition id="MessageEventDefinition_11941yc" messageRef="Message_1wxafwt" />
+    </semantic:intermediateCatchEvent>
+    <semantic:intermediateThrowEvent id="IntermediateThrowEvent_04yla10" name="Send Quotation To Approve">
+      <semantic:incoming>SequenceFlow_0eyceby</semantic:incoming>
+      <semantic:outgoing>SequenceFlow_13dmbxc</semantic:outgoing>
+      <semantic:messageEventDefinition id="MessageEventDefinition_1dbhkx5" messageRef="Message_1toh58v" />
+    </semantic:intermediateThrowEvent>
+    <semantic:endEvent id="Order_Processing_Notification" name="Order Processing Notification">
+      <semantic:incoming>_28d2483b-eb8a-47f4-83e2-d6889c9acebb</semantic:incoming>
+      <semantic:messageEventDefinition id="MessageEventDefinition_144ed5j" messageRef="Message_11cxj1t" />
+    </semantic:endEvent>
+    <semantic:serviceTask id="_2e9ea99b-2476-4a91-a204-80eef62295f1" name="Create Customer&#10;Quotation">
+      <semantic:incoming>_b6ba37f9-06ab-4fc7-a584-042f9be24146</semantic:incoming>
+      <semantic:outgoing>SequenceFlow_0eyceby</semantic:outgoing>
+    </semantic:serviceTask>
+  </semantic:process>
+  <semantic:message id="Message_0qno6tz" name="Quote_Request_Message" />
+  <semantic:message id="Message_11phtqd" name="Quote_Request_Denial_Message" />
+  <semantic:message id="Message_12h0vya" name="Proceed_With_Adjustments" />
+  <semantic:message id="Message_0f1cd7e" name="Proceed_With_Order" />
+  <semantic:message id="Message_0iwev7t" name="Do_Not_Proceed_Further_Message" />
+  <semantic:message id="Message_1ip1sk6" name="Quote_Cancellation_Notification_Message" />
+  <semantic:message id="Message_11cxj1t" name="Order_Processing_Notification_Message" />
+  <semantic:message id="Message_1toh58v" name="Send_Quotation_To_Approve_Message" />
+  <semantic:message id="Message_1wxafwt" name="Receive_Quotation_Approved_Message" />
+  <bpmndi:BPMNDiagram id="_6" name="Customer Quotation Request" documentation="">
+    <bpmndi:BPMNPlane id="_6_plane" bpmnElement="C1401821445522" trisobpmn:diagramWidth="1052" trisobpmn:diagramHeight="778">
+      <di:extension />
+      <bpmndi:BPMNShape id="S1401821445502__36885d75-adb7-41c6-b0c8-44454100a39e" bpmnElement="_36885d75-adb7-41c6-b0c8-44454100a39e" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="180" y="77" width="1260" height="1433" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="41" y="-9" width="12" height="966" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S1401821445503__9f0aab84-f83f-4c3a-ab30-abcc4a71961e" bpmnElement="_9f0aab84-f83f-4c3a-ab30-abcc4a71961e" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="210" y="77" width="1230" height="150" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="71" y="-184" width="12" height="936" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S1401821445506__5ded1e06-7e85-4d14-937a-f09da4229573" bpmnElement="_5ded1e06-7e85-4d14-937a-f09da4229573" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="279" y="128" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000">
+          <dc:Bounds x="257" y="158" width="75" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445541__b6ba37f9-06ab-4fc7-a584-042f9be24146" bpmnElement="_b6ba37f9-06ab-4fc7-a584-042f9be24146" color:border-color="#000000">
+        <di:waypoint x="309" y="143" />
+        <di:waypoint x="406" y="143" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445532__1bb10ddd-b5e9-4fde-b2d3-626d4292b5b8" bpmnElement="_1bb10ddd-b5e9-4fde-b2d3-626d4292b5b8" color:border-color="#000000">
+        <di:waypoint x="1034" y="392" />
+        <di:waypoint x="1034" y="143" />
+        <di:waypoint x="822" y="143" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445504__5623991a-5383-4082-a352-6c55e97c246e" bpmnElement="_5623991a-5383-4082-a352-6c55e97c246e" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="210" y="227" width="1230" height="153" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="71" y="-66" width="12" height="936" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S1401821445505__22c96b61-ea3d-4afb-b577-8ca4e3f07d7e" bpmnElement="_22c96b61-ea3d-4afb-b577-8ca4e3f07d7e" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="210" y="380" width="1230" height="310" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="71" y="123" width="12" height="936" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445530__cd704fef-a25f-48c4-b946-3c2dc026ea80" bpmnElement="_cd704fef-a25f-48c4-b946-3c2dc026ea80" color:border-color="#000000">
+        <di:waypoint x="1250" y="593" />
+        <di:waypoint x="1332" y="593" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445537__1eec3272-1c01-4b46-9863-15eb0f1fa687" bpmnElement="_1eec3272-1c01-4b46-9863-15eb0f1fa687" color:border-color="#000000">
+        <di:waypoint x="1048" y="622" />
+        <di:waypoint x="1090" y="622" />
+        <di:waypoint x="1090" y="604" />
+        <di:waypoint x="1167" y="604" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445540__c0180d85-bb23-4e54-9a33-80f2e88d1559" bpmnElement="_c0180d85-bb23-4e54-9a33-80f2e88d1559" color:border-color="#000000">
+        <di:waypoint x="1049" y="554" />
+        <di:waypoint x="1090" y="554" />
+        <di:waypoint x="1090" y="574" />
+        <di:waypoint x="1167" y="574" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445513__3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f" bpmnElement="_3ca2bf59-59e6-40b2-9dae-27c45cc4dd3f" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1019" y="613" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="995" y="650" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445546__045cbdba-4faf-47e8-8190-aa7b6bbfe942" bpmnElement="_045cbdba-4faf-47e8-8190-aa7b6bbfe942" color:border-color="#000000">
+        <di:waypoint x="901" y="573" />
+        <di:waypoint x="901" y="628" />
+        <di:waypoint x="1019" y="628" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445514__25f36b74-276a-44a0-a0e3-073850702ef3" bpmnElement="_25f36b74-276a-44a0-a0e3-073850702ef3" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1019" y="459" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="1002" y="496" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445529__262cd4dd-899d-4b68-8bc9-bd3bdcc68e53" bpmnElement="_262cd4dd-899d-4b68-8bc9-bd3bdcc68e53" color:border-color="#000000">
+        <di:waypoint x="912" y="544" />
+        <di:waypoint x="912" y="474" />
+        <di:waypoint x="1019" y="474" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445548__28d2483b-eb8a-47f4-83e2-d6889c9acebb" bpmnElement="_28d2483b-eb8a-47f4-83e2-d6889c9acebb" color:border-color="#000000">
+        <di:waypoint x="1049" y="474" />
+        <di:waypoint x="1115" y="474" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445516__b7b16098-5908-4be9-815e-1965781baa5d" bpmnElement="_b7b16098-5908-4be9-815e-1965781baa5d" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="879" y="532" width="42" height="42" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445534__fb388c42-aef4-4d1c-91d9-a6ce49bc89aa" bpmnElement="_fb388c42-aef4-4d1c-91d9-a6ce49bc89aa" color:border-color="#000000">
+        <di:waypoint x="901" y="533" />
+        <di:waypoint x="901" y="407" />
+        <di:waypoint x="1019" y="407" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445539__76b570a7-a33e-4118-a52e-7fcfe1e1182c" bpmnElement="_76b570a7-a33e-4118-a52e-7fcfe1e1182c" color:border-color="#000000">
+        <di:waypoint x="920" y="554" />
+        <di:waypoint x="1019" y="554" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445542__b008ee56-54f9-4b72-86c8-d9200c707e27" bpmnElement="_b008ee56-54f9-4b72-86c8-d9200c707e27" color:border-color="#000000">
+        <di:waypoint x="822" y="554" />
+        <di:waypoint x="880" y="554" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445520__78b71d30-392c-4d73-8ad4-f55852a4c7ef" bpmnElement="_78b71d30-392c-4d73-8ad4-f55852a4c7ef" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1019" y="392" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="1002" y="429" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S1401821445521__5782bfa3-61d0-4093-95a9-3740af4001b3" bpmnElement="_5782bfa3-61d0-4093-95a9-3740af4001b3" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1019" y="539" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="995" y="576" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1u0u3c5_di" bpmnElement="Order_Processing_Notification">
+        <dc:Bounds x="1115" y="459" width="30" height="30" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1087" y="496" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0vi97jf_di" bpmnElement="Quote_Cancellation_Notification">
+        <dc:Bounds x="1332" y="575" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1320" y="618" width="61" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1e44tm2_di" bpmnElement="_2e9ea99b-2476-4a91-a204-80eef62295f1">
+        <dc:Bounds x="406" y="107" width="87" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445536__1359fcf4-f084-4fd4-8e48-0ce275a826e4" bpmnElement="_1359fcf4-f084-4fd4-8e48-0ce275a826e4" color:border-color="#000000" triso:userconstraints="true">
+        <di:waypoint x="781" y="290" />
+        <di:waypoint x="781" y="233" />
+        <di:waypoint x="780" y="233" />
+        <di:waypoint x="780" y="177" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000">
+          <dc:Bounds x="751" y="226" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="E1401821445543__03cd0fbd-1fa5-41a9-85d3-cc4480813acb" bpmnElement="_03cd0fbd-1fa5-41a9-85d3-cc4480813acb" color:border-color="#000000" triso:userconstraints="true">
+        <di:waypoint x="781" y="330" />
+        <di:waypoint x="781" y="521" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000">
+          <dc:Bounds x="756" y="349" width="51" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S1401821445509__521b2244-c0d0-4468-87f2-ab9e4054be56" bpmnElement="Quote_Request_Denial" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="885" y="297" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000">
+          <dc:Bounds x="863" y="327" width="75" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="E1401821445538__e93bc7d2-2bcf-4f4f-ad2d-97581eaa31f9" bpmnElement="_e93bc7d2-2bcf-4f4f-ad2d-97581eaa31f9" color:border-color="#000000">
+        <di:waypoint x="800" y="311" />
+        <di:waypoint x="885" y="311" />
+        <bpmndi:BPMNLabel labelStyle="LS_6" color:color="#000000" trisobpmn:defaultBounds="true">
+          <dc:Bounds x="803" y="293" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0xlqrim_di" bpmnElement="_e03d3779-04d8-4e00-abd5-aaf0e433cc1f">
+        <dc:Bounds x="739" y="109" width="83" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0kbliym_di" bpmnElement="_2b484811-f6e9-4cff-bc6a-9b53552affb7">
+        <dc:Bounds x="739" y="521" width="83" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1ao51qq_di" bpmnElement="_8fe4e6f6-069e-4660-8167-7b455168f649">
+        <dc:Bounds x="1167" y="558" width="83" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="InclusiveGateway_0ds06gl_di" bpmnElement="_b546e1a4-026c-4665-b7e2-4a8922fe48ac">
+        <dc:Bounds x="759" y="289" width="42" height="42" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0wk6cba_di" bpmnElement="Lane_0wk6cba" isHorizontal="true">
+        <dc:Bounds x="210" y="690" width="1230" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_0boxwf7_di" bpmnElement="SubProcess_1hcpctj" isExpanded="true">
+        <dc:Bounds x="615" y="720" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_077uljg_di" bpmnElement="StartEvent_1st2hx9">
+        <dc:Bounds x="655" y="802" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_007p6ta_di" bpmnElement="SequenceFlow_007p6ta">
+        <di:waypoint x="691" y="820" />
+        <di:waypoint x="745" y="820" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1sabdw2_di" bpmnElement="EndEvent_1sabdw2">
+        <dc:Bounds x="897" y="802" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kyjfq9_di" bpmnElement="SequenceFlow_1kyjfq9">
+        <di:waypoint x="845" y="820" />
+        <di:waypoint x="897" y="820" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1e3l38v_di" bpmnElement="Task_03ndaua">
+        <dc:Bounds x="745" y="780" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1u02zm9_di" bpmnElement="Lane_1u02zm9" isHorizontal="true">
+        <dc:Bounds x="210" y="950" width="1230" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_18u19q2_di" bpmnElement="SubProcess_18u19q2" isExpanded="true">
+        <dc:Bounds x="615" y="990" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0lzc69d_di" bpmnElement="StartEvent_0lzc69d">
+        <dc:Bounds x="655" y="1072" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0qqnul1_di" bpmnElement="EndEvent_0qqnul1">
+        <dc:Bounds x="897" y="1072" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_12l86rd_di" bpmnElement="ServiceTask_12l86rd">
+        <dc:Bounds x="745" y="1050" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_05st5m1_di" bpmnElement="SequenceFlow_05st5m1">
+        <di:waypoint x="691" y="1090" />
+        <di:waypoint x="745" y="1090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0053w15_di" bpmnElement="SequenceFlow_0053w15">
+        <di:waypoint x="845" y="1090" />
+        <di:waypoint x="897" y="1090" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0fppj7k_di" bpmnElement="Lane_0fppj7k" isHorizontal="true">
+        <dc:Bounds x="210" y="1230" width="1230" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_05zvzlk_di" bpmnElement="SubProcess_05zvzlk" isExpanded="true">
+        <dc:Bounds x="615" y="1280" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1t7iz5z_di" bpmnElement="StartEvent_1t7iz5z">
+        <dc:Bounds x="655" y="1362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_07ifs8m_di" bpmnElement="EndEvent_07ifs8m">
+        <dc:Bounds x="897" y="1362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1jp6f9c_di" bpmnElement="ServiceTask_1jp6f9c">
+        <dc:Bounds x="745" y="1340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ojwke1_di" bpmnElement="SequenceFlow_0ojwke1">
+        <di:waypoint x="691" y="1380" />
+        <di:waypoint x="745" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0jgbmcw_di" bpmnElement="SequenceFlow_0jgbmcw">
+        <di:waypoint x="845" y="1380" />
+        <di:waypoint x="897" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0eyceby_di" bpmnElement="SequenceFlow_0eyceby">
+        <di:waypoint x="493" y="141" />
+        <di:waypoint x="582" y="141" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_1a2i1nr_di" bpmnElement="IntermediateThrowEvent_04yla10">
+        <dc:Bounds x="582" y="123" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="563" y="93" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0x40d49_di" bpmnElement="IntermediateThrowEvent_1jeolkt">
+        <dc:Bounds x="652" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="646" y="335" width="48" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13dmbxc_di" bpmnElement="SequenceFlow_13dmbxc">
+        <di:waypoint x="600" y="159" />
+        <di:waypoint x="600" y="310" />
+        <di:waypoint x="652" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1djc3xg_di" bpmnElement="SequenceFlow_1djc3xg">
+        <di:waypoint x="688" y="310" />
+        <di:waypoint x="759" y="310" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="LS_6">
+      <dc:Font name="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+  <semantic:relationship type="ActivityStream">
+    <semantic:extensionElements>
+      <rss:rss version="2.0">
+        <rss:channel />
+      </rss:rss>
+    </semantic:extensionElements>
+    <semantic:source>_1363713133145</semantic:source>
+    <semantic:target>_1363713133145</semantic:target>
+  </semantic:relationship>
+  <semantic:relationship type="trisoExtension">
+    <semantic:extensionElements>
+      <triso:ProjectCharter>
+        <triso:projectDescription>&lt;p&gt;Process posted on ORYX-Editor. A Customer makes a request for a quote from a supplier&amp;nbsp;before&amp;nbsp;confirming or infirming a formal order.&lt;/p&gt;</triso:projectDescription>
+        <triso:projectGoals />
+        <triso:projectChallenges />
+        <triso:projectStakeholders />
+      </triso:ProjectCharter>
+    </semantic:extensionElements>
+    <semantic:source>_1363713133145</semantic:source>
+    <semantic:target>_1363713133145</semantic:target>
+  </semantic:relationship>
+</semantic:definitions>
