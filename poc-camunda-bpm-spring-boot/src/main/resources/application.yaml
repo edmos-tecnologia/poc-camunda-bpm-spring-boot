@@ -1,3 +1,4 @@
+spring:  application:    name: poc-camunda-bpm-spring-boot  datasource:      url: jdbc:mysql://localhost:3306/camundadb      driverClassName: com.mysql.cj.jdbc.Driver      username: root      password:  jpa:    show-sql: true    
 camunda.bpm:
   admin-user:
     id: admin
