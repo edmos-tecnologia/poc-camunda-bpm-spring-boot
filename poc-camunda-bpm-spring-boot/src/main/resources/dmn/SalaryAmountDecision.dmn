@@ -1,56 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_00fyq8a" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
-  <decision id="SalaryAmountDecision" name="Salary Amount" camunda:versionTag="1">
-    <extensionElements>
-      <biodi:bounds x="346" y="215" width="180" height="80" />
-      <biodi:edge source="InputData_0o2lmtb">
-        <biodi:waypoints x="249" y="250" />
-        <biodi:waypoints x="346" y="250" />
-      </biodi:edge>
-      <biodi:edge source="BusinessKnowledgeModel_11rqbfs">
-        <biodi:waypoints x="681" y="255" />
-        <biodi:waypoints x="526" y="257" />
-      </biodi:edge>
-    </extensionElements>
-    <informationRequirement>
-      <requiredInput href="#InputData_0o2lmtb" />
-    </informationRequirement>
-    <knowledgeRequirement>
-      <requiredKnowledge href="#BusinessKnowledgeModel_11rqbfs" />
-    </knowledgeRequirement>
-    <decisionTable id="DecisionTable_0a41uez">
-      <input id="InputClause_1l60vl6" label="salaryAmount">
-        <inputExpression id="LiteralExpression_0t338on" typeRef="double">
-          <text></text>
-        </inputExpression>
-      </input>
-      <output id="OutputClause_0sx1brs" typeRef="string" />
-      <rule id="DecisionRule_09iw2zd">
-        <inputEntry id="UnaryTests_0opw1qi">
-          <text>&lt;= 1000</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0itkeu8">
-          <text>"Eu sou POBRE!"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1agdq74">
-        <inputEntry id="UnaryTests_0u7mv4p">
-          <text>[1001..3000]</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1pwyz1o">
-          <text>"Tô na média..."</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0dk70hz">
-        <inputEntry id="UnaryTests_14s71gu">
-          <text>&gt; 3000</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0d4b774">
-          <text>"Eu sou RICO!"</text>
-        </outputEntry>
-      </rule>
-    </decisionTable>
-  </decision>
   <inputData id="InputData_0o2lmtb" name="Input Data">
     <extensionElements>
       <biodi:bounds x="124" y="227" width="125" height="45" />
@@ -73,4 +22,63 @@
       <requiredDecision href="#SalaryAmountDecision" />
     </authorityRequirement>
   </knowledgeSource>
+  <decision id="SalaryAmountDecision" name="Salary Amount" camunda:versionTag="1">
+    <extensionElements>
+      <biodi:bounds x="346" y="215" width="180" height="80" />
+      <biodi:edge source="BusinessKnowledgeModel_11rqbfs">
+        <biodi:waypoints x="681" y="255" />
+        <biodi:waypoints x="526" y="257" />
+      </biodi:edge>
+      <biodi:edge source="InputData_0o2lmtb">
+        <biodi:waypoints x="249" y="250" />
+        <biodi:waypoints x="346" y="250" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0o2lmtb" />
+    </informationRequirement>
+    <knowledgeRequirement>
+      <requiredKnowledge href="#BusinessKnowledgeModel_11rqbfs" />
+    </knowledgeRequirement>
+    <decisionTable id="DecisionTable_0a41uez" hitPolicy="FIRST">
+      <input id="InputClause_1l60vl6" label="salaryAmount" camunda:inputVariable="salaryAmount">
+        <inputExpression id="LiteralExpression_0t338on" typeRef="double">
+          <text>${salaryAmount.valor}</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0sx1brs" label="result" name="result" typeRef="string" />
+      <rule id="DecisionRule_09iw2zd">
+        <inputEntry id="UnaryTests_0opw1qi">
+          <text>&lt; 1000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0itkeu8">
+          <text>"Eu sou POBRE!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1agdq74">
+        <inputEntry id="UnaryTests_0u7mv4p">
+          <text>[1001..3000]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pwyz1o">
+          <text>"Tô na média..."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dk70hz">
+        <inputEntry id="UnaryTests_14s71gu">
+          <text>&gt; 3000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d4b774">
+          <text>"Eu sou RICO!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hdzuv6">
+        <inputEntry id="UnaryTests_1n4pbi5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xit4f9">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
 </definitions>

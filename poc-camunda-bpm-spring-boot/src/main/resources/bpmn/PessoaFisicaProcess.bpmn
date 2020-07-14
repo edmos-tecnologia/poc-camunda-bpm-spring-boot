@@ -86,11 +86,15 @@
       <bpmn:incoming>SequenceFlow_0ubb7x3</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1kv0y8m</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:businessRuleTask id="VerifySalaryAmountTask" name="Verify Salary Amount" camunda:asyncBefore="true" camunda:resultVariable="salaryAmount" camunda:decisionRef="SalaryAmountDecision" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="VerifySalaryAmountTask" name="Verify Salary Amount" camunda:asyncBefore="true" camunda:resultVariable="result" camunda:decisionRef="SalaryAmountDecision" camunda:mapDecisionResult="singleEntry">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="salaryAmount">999</camunda:inputParameter>
-          <camunda:outputParameter name="validationResult" />
+          <camunda:inputParameter name="salaryAmount">
+            <camunda:map>
+              <camunda:entry key="valor">${pessoa.salario}</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:outputParameter name="resultMessage" />
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0u3wdfl</bpmn:incoming>

@@ -7,6 +7,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.springframework.stereotype.Component;
 
 import br.com.edmos.camunda.delegate.AbstractDelegate;
+import br.com.edmos.camunda.pessoafisica.pojo.Endereco;
+import br.com.edmos.camunda.pessoafisica.pojo.Pessoa;
 
 @Component("getEnderecoPessoaDelegate")
 public class GetEnderecoPessoaDelegate extends AbstractDelegate {
@@ -17,8 +19,8 @@ public class GetEnderecoPessoaDelegate extends AbstractDelegate {
 	public void execute(DelegateExecution execution) throws Exception {
 		super.execute(execution);
 		
-		Map pessoa = (Map) execution.getVariable("pessoa");
-		List<Map<String, Object>> enderecos = (List<Map<String, Object>>) pessoa.get("enderecos");
+		Pessoa pessoa = (Pessoa) execution.getVariable("pessoa");
+		List<Endereco> enderecos = (List<Endereco>) pessoa.getEnderecos();
 		execution.setVariable("currentEndereco", Integer.valueOf(this.currentIndex));
 				
 		if (this.currentIndex < enderecos.size()) {

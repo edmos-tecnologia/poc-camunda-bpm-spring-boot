@@ -13,5 +13,6 @@ public class MainPoolListener implements ExecutionListener {
 	
 	public void notify(DelegateExecution execution) throws Exception {
 		Log.info("Entrando no MainPool");
+		execution.setVariable("reprocessar", Boolean.TRUE);
 	}
 }
