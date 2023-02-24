@@ -2,9 +2,9 @@ package br.com.edmos.camunda.pessoafisica.pojo;
 
 import java.util.List;
 
-import lombok.Data;
+//import lombok.Data;
 
-@Data
+//@Data
 public class Pessoa {
 	private Long id;
 	private String tipo;

@@ -5,6 +5,10 @@
 	<groupId>br.com.edmos.camunda.spring</groupId>
 	<artifactId>poc-camunda-bpm-spring-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.source>19</maven.compiler.source>
+		<maven.compiler.target>19</maven.compiler.target>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -93,7 +97,6 @@
 			<!-- <version>1.18.8</version> -->
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -132,5 +135,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

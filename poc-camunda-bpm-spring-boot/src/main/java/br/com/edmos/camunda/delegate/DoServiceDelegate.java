@@ -29,7 +29,7 @@ public class DoServiceDelegate extends AbstractDelegate {
 		execution.setVariables(response);
 		Log.info(response.toString());
 		
-		//Erro forçado!
+		//Erro forÃ§ado!
 		String message = "Mahh Oeee! Deu erroooo!";
 		
 		if (Context.getJobExecutorContext().getCurrentJob().getRetries() > 1) {

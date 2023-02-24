@@ -1,8 +1,8 @@
 package br.com.edmos.camunda.pessoafisica.pojo;
 
-import lombok.Data;
+//import lombok.Data;
 
-@Data
+//@Data
 public class Endereco {
 	private Long id;
 	private Integer tipoEndereco;
